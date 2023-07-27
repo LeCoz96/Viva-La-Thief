@@ -15,16 +15,11 @@ public class AIActions : MonoBehaviour
         _data = GetComponent<AIData>();
     }
 
-    void Update()
-    {
-
-    }
-
     public bool MoveTo(GameObject target)
     {
         if (target == null)
         {
-            Vector3 location;
+            Vector2 location;
             if (TestLocation(target.transform.position, out location))
             {
                 _navAgent.destination = location;
@@ -34,15 +29,15 @@ public class AIActions : MonoBehaviour
         return false;
     }
 
-    private bool TestLocation(Vector3 testLocation, out Vector3 location)
+    private bool TestLocation(Vector2 testLocation, out Vector2 location)
     {
-        if (NavMesh.SamplePosition(testLocation, out _navHit, Vector3.Distance(transform.position, testLocation), _data.GetAILayerMask()))
+        if (NavMesh.SamplePosition(testLocation, out _navHit, Vector2.Distance(transform.position, testLocation), _data.GetAILayerMask()))
         {
             location = _navHit.position;
             return true;
         }
 
-        location = Vector3.zero;
+        location = Vector2.zero;
         return false;
     }
 }
